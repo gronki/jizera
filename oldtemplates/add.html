@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html lang="pl">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="robots" content="noindex, noimageindex, nofollow" />
+        <meta name="google" content="notranslate" />
+        <meta name="description" content="Opis strony" />
+        <meta name="og:description" content="Opis strony" />
+        <meta name="og:image" content="img/wygasz.png" />
+        <link href="css/app.css" rel="stylesheet" type="text/css">
+        <title>Baza ciemnego nieba WYGASZ</title>
+        <meta name="og:title" content="Opis strony" />
+    </head>
+    <body>
+
+
+        <div class="title-bar" data-responsive-toggle="menu" data-hide-for="tablet">
+            <div class="mobile-branding-wrapper float-left">
+                <img src="img/wygasz-beta.png" alt="wygasz" class="mobile-branding" />
+            </div>
+            <div class="data-toggle-wrapper float-right">
+                <button class="menu-icon" type="button" data-toggle></button>
+            </div>
+        </div>
+
+        <div class="top-bar" id="menu"
+            data-toggler data-animate="hinge-in-from-top">
+            <div class="row">
+                <div class="columns medium-12">
+                    <div class="top-bar-title show-for-tablet">
+                        <img src="img/wygasz-beta.png" alt="wygasz" id="branding" />
+                    </div>
+                    <div class="top-bar-right">
+
+                        <ul class="vertical tablet-horizontal menu"  data-responsive-menu="drilldown tablet-dropdown">
+                            <li class="active"> <a>Dodaj</a> </li>
+                            <li> <a>Przeglądaj</a> </li>
+                            <li>
+                                <a>Przewodnik</a>
+                                <ul class="vertical menu" data-submenu>
+                                    <li> <a>Ciemność nieba</a> </li>
+                                    <li> <a>Jak mierzyć?</a> </li>
+                                </ul>
+                            </li>
+                            <li> <a>Model</a> </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+       <div class="container" id="mainContainer">
+
+           <h1>Dodaj wpis do bazy</h1>
+
+
+           <form class="form-horizontal">
+               <div class="form-group">
+                   <label for="obs_name" class="col-sm-3  control-label">Imię i nazwisko
+                   <p class="form-descr">
+                   Podawanie imienia i nazwiska nie jest obowiązkowe.
+                   </p></label>
+                   <div class="col-sm-9 col-lg-8">
+                       <input type="text" class="form-control" id="obs_name" placeholder="Jan Kowalski" />
+                   </div>
+               </div>
+
+               <div class="form-group">
+
+                       <label for="pos" class="control-label col-sm-3">Położenie
+                            <p class="form-descr">
+                            Za pomocą pinezki zaznacz położenie wykonywanych obserwacji. Możesz też wybrać
+                            jedną z innych lokalizacji już występujących w bazie lub po prostu wkleić współrzędne
+                            punktu obserwacyjnego w formacie dziesiętnym.
+                            </p></label>
+
+
+
+                   <div class="col-sm-9 col-lg-8">
+
+                       <div id="map" style="height:380px;"></div>
+
+                       <div class="vsep1"></div>
+
+                       <div class="row">
+                           <div class="col-sm-6">
+                               <input type="text" id="pos" class="form-control" placeholder="51.109371, 17.085699" />
+                               <input type="hidden" id="inp_use_saved_location" name="use_saved_location" value="0" />
+                           </div>
+                           <div class="col-sm-6">
+                               <p style="text-align:right"><a class="btn">
+                                   <span class="glyphicon glyphicon-star"></span>
+                                   Zrecenzuj miejsce obserwacji</a></p>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+
+               <div class="form-group">
+                   <label for="obs_name" class="col-sm-3  control-label">Data obserwacji
+                   <p class="form-descr">
+                   W przypadku obserwacji całonocnych, jest to data wieczoru przed nocą obserwacyjną.
+                   </p></label>
+                   <div class="col-sm-9 col-lg-8">
+                       <input type="date" class="form-control"  />
+                   </div>
+               </div>
+
+               <div class="form-group">
+                   <label for="obs_name" class="col-sm-3  control-label">Godziny obserwacji</label>
+                   <div class="col-sm-9 col-lg-8">
+                       <div class="row">
+                           <div class="col-xs-6"><input type="time" class="form-control"  /></div>
+                           <div class="col-xs-6"><input type="time" class="form-control"  /></div>
+                       </div>
+
+                   </div>
+               </div>
+
+               <div class="form-group">
+                   <label class="col-sm-3  control-label">Warunki obserwacji
+                   <p class="form-descr">
+                   W przypadku obserwacji całonocnych, jest to data wieczoru przed nocą obserwacyjną.
+                   </p></label>
+                   <div class="col-sm-9 col-lg-8">
+
+                       <div class="row">
+                           <div class="col-xs-6">
+                               <select class="form-control">
+                                   <option value="0">zachmurzone 0/8</option>
+                                   <option value="2">zachmurzone 2/8</option>
+                                   <option value="4">zachmurzone 4/8</option>
+                                   <option value="6">zachmurzone 6/8</option>
+                               </select>
+                           </div>
+                           <div class="col-xs-6">
+                               <select class="form-control">
+                                   <option value="yes">Droga mleczna widoczna</option>
+                                   <option value="no">Droga mleczna niewidoczna</option>
+                                   <option value="unknown">Nie wiem</option>
+                               </select>
+                           </div>
+                       </div>
+
+
+                   </div>
+
+               </div>
+
+
+           </form>
+
+
+
+       </div>
+
+       <script src="../static/js/jquery.js"></script>
+       <script src="../static/js/jizera.js"></script>
+
+       <script>
+            var pin;
+            var latlng;
+            var pos_field = $('#pos');
+
+
+           function initMap3(elem_id, latlng_init) {
+               if (!latlng_init) latlng_init = {lat:52.099405, lng:19.358006};
+
+               var map = new google.maps.Map(document.getElementById(elem_id), {
+                  zoom: 7,
+                  center: {lat:52.189689, lng:19.577733},
+                  mapTypeId: google.maps.MapTypeId.HYBRID,
+                  streetViewControl: false,
+                  mapTypeControl: false
+                //    mapTypeControlOptions: {
+                //      style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR ,
+                //      mapTypeIds: [
+                //         google.maps.MapTypeId.HYBRID,
+                //         google.maps.MapTypeId.TERRAIN
+                //      ]
+                //    }
+               });
+
+               var infowindow = new google.maps.InfoWindow({content:'', maxWidth:400});
+
+               map.addListener('click', function(e){
+                   latlng = {
+                       lat: e.latLng.lat(),
+                       lng: e.latLng.lng()
+                   };
+
+                   if (!pin || pin.map == null) {
+
+                       if (!pin) {
+                           pin = new google.maps.Marker({
+                               position: latlng,
+                               draggable:true,
+                               map: map
+                           });
+                       } else {
+                           pin.setMap(map);
+                           pin.setPosition(latlng);
+                       }
+
+                       if(infowindow) infowindow.close();
+
+                       pin.addListener('dragend', function(e){
+                           latlng = e.latLng;
+                        //    map.panTo(latlng);
+                           $('#pos').val(latlng2str(latlng));
+                       });
+                   } else {
+                       pin.setPosition(latlng);
+                   }
+                //    map.panTo(latlng);
+                   $('#pos').val(latlng2str(latlng));
+               });
+
+               var p1ll = {lat: 51.109373, lng: 17.085701};
+               var pin2 = new google.maps.Marker({
+                   position: p1ll,
+                   draggable:false,
+                   clickable:true,
+                   map: map,
+                   icon: {
+                       path: google.maps.SymbolPath.CIRCLE,
+                       fillOpacity: 1,
+                       fillColor: '#FF6400',
+                       strokeColor: 'white',
+                       strokeOpacity: 1,
+                       strokeWeight: 0.6,
+                       scale: 3
+                   }
+               });
+
+
+               pin2.addListener('click', function(e){
+                //    map.panTo(p1ll);
+                   if (pin) pin.setMap(null);
+                   $('#pos').val(latlng2str(p1ll));
+                   var s1 = latlng2str(p1ll);
+                   infowindow.setContent('<div style="width:320px"><div style="width:190px;box-sizing:border-box;display:inline-block;padding-left:10px;"><h4>Chata u Jerzego</h4><p>Pomiarów: <b>5</b><br/>'
+                    +'Jakość nieba: <b>3.4</b></p><p style="text-align:right;margin-bottom:0px;"><a href="#">Szczegóły (nowe okno)</a></p></div><div style="padding-top:5px;width: 125px;display:inline-block;float:left"><img src="https://maps.googleapis.com/maps/api/staticmap?key=AIzaSyBdhoSL2YRJZTYdaPKfSTrTkiDsgAiHbts&center='+s1
+                        +'&markers=color:red%7C'+s1+'&zoom=17&size=110x110&maptype=satellite" alt="Mapa" /></div></div>');
+
+                   infowindow.open(map, pin2);
+               });
+
+               return map;
+
+          }
+
+
+          function initMap() {
+              var map = initMap3('map');
+          }
+
+       </script>
+       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdhoSL2YRJZTYdaPKfSTrTkiDsgAiHbts&signed_in=false&callback=initMap"
+           async defer></script>
+
+       <script src="../static/js/jquery.js"></script>
+       <script src="../static/js/jizera.js"></script>
+    </body>
+</html>

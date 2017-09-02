@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="robots" content="noindex, noimageindex, nofollow" />
+        <meta name="google" content="notranslate" />
+        <meta name="description" content="Opis strony" />
+        <meta name="og:description" content="Opis strony" />
+        <meta name="og:image" content="img/wygasz.png" />
+        <link href="css/app.css" rel="stylesheet" type="text/css">
+        <title>Baza ciemnego nieba WYGASZ</title>
+        <meta name="og:title" content="Opis strony" />
+    </head>
+    <body>
+
+
+        <div class="title-bar" data-responsive-toggle="menu" data-hide-for="tablet">
+            <div class="mobile-branding-wrapper float-left">
+                <img src="img/wygasz-beta.png" alt="wygasz" class="mobile-branding" />
+            </div>
+            <div class="data-toggle-wrapper float-right">
+                <button class="menu-icon" type="button" data-toggle></button>
+            </div>
+        </div>
+
+        <div class="top-bar" id="menu"
+            data-toggler data-animate="hinge-in-from-top">
+            <div class="row">
+                <div class="columns medium-12">
+                    <div class="top-bar-title show-for-tablet">
+                        <img src="img/wygasz-beta.png" alt="wygasz" id="branding" />
+                    </div>
+                    <div class="top-bar-right">
+
+                        <ul class="vertical tablet-horizontal menu"  data-responsive-menu="drilldown tablet-dropdown">
+                            <li class="active"> <a>Dodaj</a> </li>
+                            <li> <a>Przeglądaj</a> </li>
+                            <li>
+                                <a>Przewodnik</a>
+                                <ul class="vertical menu" data-submenu>
+                                    <li> <a>Ciemność nieba</a> </li>
+                                    <li> <a>Jak mierzyć?</a> </li>
+                                </ul>
+                            </li>
+                            <li> <a>Model</a> </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+       <div class="container" id="mainContainer">
+
+
+           <div id="js-off">
+               <h1>Poczekaj! Ładuję stronę...</h1>
+
+               <p>Jeżeli widzisz tę wiadomość zbyt długo, być może
+                    masz wyłączony <b>Javascript</b> w przeglądarce?
+                    Niestety, do obsługi tej strony konieczna
+                    jest aktywacja Javascript.</p>
+           </div>
+
+
+           <div id="js-on">
+                <div style="height:20px"></div>
+               <div class="row">
+                   <div class="col-sm-6 col-md-5" style="text-align:center">
+                       <h1>Znajdź w pobliżu</h1>
+                       <p>Wybierz na mapie miejsce, w rejonie którego interesują Cię pomiary. Program wyszuka wszystkie
+                       zarejestrowane miejsca obserwacyjne w promieniu <strong>60&nbsp;km</strong>.</p>
+                       <p style="margin-top:20px"><a class="btn btn-default">Pokaż mi całą bazę!</a></p>
+                       <div class="visible-xs" style="height:20px"></div>
+                   </div>
+
+                   <div class="col-sm-6 col-md-7">
+                        <div id="map" style="min-height:450px; height:100%;"></div>
+
+                   </div>
+
+
+               </div>
+               <div style="height:40px"></div>
+
+               <a id="tablestart"></a>
+
+               <table id="placelist" class="table">
+                   <thead>
+                       <tr>
+                           <th style="min-width:30%">Miejsce</th>
+                           <th>Jakość nieba</th>
+                           <th>Zasięg gwiazdowy</th>
+                           <th class="hidden-xs">Skala Bortle'a</th>
+                           <th class="hidden-xs">Tło (SQM)</th>
+                           <th>Tło (DSLR)</th>
+                           <th class="hidden-xs hidden-sm">Liczba gwiazd (tuba)</th>
+                       </tr>
+                   </thead>
+                   <tbody>
+                       <tr class="clickableitem">
+                           <td>Szosa <br/> <small>1 km</small></td>
+                           <td>4.67</td>
+                           <td>8.1<sup>m</sup></td>
+                           <td class="hidden-xs">2</td>
+                           <td class="hidden-xs">21.2</td>
+                           <td>21.3</td>
+                           <td class="hidden-xs hidden-sm">1980</td>
+                       </tr>
+
+                       <tr class="clickableitem aaaa">
+                           <td>Orle (Góry Izerskie) <br/> <small>31 km</small></td>
+                           <td>4.67</td>
+                           <td>8.1<sup>m</sup></td>
+                           <td class="hidden-xs">2</td>
+                           <td class="hidden-xs">21.2<sup>m</sup></td>
+                           <td>21.3<sup>m</sup></td>
+                           <td class="hidden-xs hidden-sm">1980</td>
+                       </tr>
+
+                       <tr id="PlaceDetailsPopupWrapper" style="display:none">
+
+                           <td colspan="7">
+                           <div id="PlaceDetailsPopup">
+
+                               <a class="closelink btn" href="#">zamknij</a>
+                               <img src="img/dziubek.gif" class="tip" />
+
+                               <div class="ajxcnt">
+                                   <!-- loaded from ajax START -->
+
+                                   <h3>Schronisko turystyczne Orle</h3>
+
+                                   <div class="row">
+                                       <div class="col-sm-5 col-md-4">
+
+                                          <img src="https://maps.googleapis.com/maps/api/staticmap?key=AIzaSyBdhoSL2YRJZTYdaPKfSTrTkiDsgAiHbts&center=50.814717,15.383471&markers=color:red%7C50.814717,15.383471&zoom=13&size=400x280&maptype=terrain"
+                                                   alt="Mapa: Schronisko Orle" style="width:100%; margin-bottom:20px" class="staticmap"/>
+
+                                       </div>
+                                       <div class="col-sm-7 col-md-8">
+
+                                           <div class="row">
+                                               <div class="col-xs-6" style="margin:10px 0px">
+                                                   <p> <span  class="glyphicon glyphicon-ok"></span> Dostęp do prądu </p>
+                                                   <p> <span  class="glyphicon glyphicon-remove"></span> Dobra widoczność horyzontu </p>
+                                                   <p> <span  class="glyphicon glyphicon-ok"></span> Możliwość noclegu </p>
+                                               </div>
+                                               <div class="col-xs-6">
+                                                   <table style="width:100%; margin: 10px 0px;">
+                                                       <tr><td>
+                                                           <a style="cursor:default"
+                                                           title="Metoda jasności granicznej polega na liczeniu gwiazd w wyznaczonym obszarze nieba i zamianą wyniku na zasięg graniczny przy pomocy tabeli.">
+                                                           Jasność graniczna</a>
+                                                       </td> <td><b>7.5<sup>m</sup></b></td> </tr>
+
+
+                                                       <tr><td>Skala Bortle'a</td><td><b>2</b></td></tr>
+                                                       <tr><td>Jasność tła (SQM)</td><td><b>22.2<sup>m</sup></b></td></tr>
+                                                       <tr><td>Jasność tla (DSLR)</td><td><b>22.3<sup>m</sup></b></td></tr>
+                                                       <tr><td>Liczba gwiazd</td><td><b>1234</b></td></tr>
+                                                   </table>
+                                               </div>
+                                           </div>
+                                           <div style="clear:both"></div>
+                                           <div class="row">
+                                               <div class="col-sm-8">
+                                                   <p>Czy polecasz to miejsce?</p>
+                                                   <div class="redgreenbar votable"><div style="width:74.99%;background-color:#60C936"><p>TAK</p></div><div  style="width:24.99%;background-color:#C93636"><p>NIE</p></div></div>
+                                                   <p><small>61 głosów</small></p>
+                                               </div>
+                                               <div class="col-sm-4">
+                                                   <div style="height:30px" class="hidden-xs"></div>
+                                                   <p style="text-align:right"><a class="btn btn-primary">Szczegóły</a></p>
+                                               </div>
+                                           </div>
+
+                                       </div>
+                                   </div>
+
+                                   <!-- Loaded from AJAX -->
+
+                               </div>
+
+                           </div>
+                       </td>
+                       </tr>
+
+                       <tr class="clickableitem">
+                           <td>Chatka Górzystów <br/> <small>39 km</small></td>
+                           <td>4.67</td>
+                           <td>8.1<sup>m</sup></td>
+                           <td class="hidden-xs">2</td>
+                           <td class="hidden-xs">21.2</td>
+                           <td>21.3</td>
+                           <td class="hidden-xs hidden-sm">1980</td>
+                       </tr>
+                       <tr class="clickableitem">
+                           <td>Szosa <br/> <small>45 km</small></td>
+                           <td>4.67</td>
+                           <td>8.1<sup>m</sup></td>
+                           <td class="hidden-xs">2</td>
+                           <td class="hidden-xs">21.2</td>
+                           <td>21.3</td>
+                           <td class="hidden-xs hidden-sm">1980</td>
+                       </tr>
+                       <tr class="clickableitem">
+                           <td>Parking <br/> <small>65 km</small></td>
+                           <td>4.67</td>
+                           <td>8.1<sup>m</sup></td>
+                           <td class="hidden-xs">2</td>
+                           <td class="hidden-xs">21.2</td>
+                           <td>21.3</td>
+                           <td class="hidden-xs hidden-sm">1980</td>
+                       </tr>
+                       <tr class="clickableitem">
+                           <td>Psary <br/> <small>88 km</small></td>
+                           <td>4.67</td>
+                           <td>8.1<sup>m</sup></td>
+                           <td class="hidden-xs">2</td>
+                           <td class="hidden-xs">21.2</td>
+                           <td>21.3</td>
+                           <td class="hidden-xs hidden-sm">1980</td>
+                       </tr>
+                       <tr class="clickableitem">
+                           <td>Legnica <br/> <small>95 km</small></td>
+                           <td>4.67</td>
+                           <td>8.1<sup>m</sup></td>
+                           <td class="hidden-xs">2</td>
+                           <td class="hidden-xs">21.2</td>
+                           <td>21.3</td>
+                           <td class="hidden-xs hidden-sm">1980</td>
+                       </tr>
+                       <tr class="clickableitem">
+                           <td>Orłowo <br/> <small>150 km</small></td>
+                           <td>4.67</td>
+                           <td>8.1<sup>m</sup></td>
+                           <td class="hidden-xs">2</td>
+                           <td class="hidden-xs">21.2</td>
+                           <td>21.3</td>
+                           <td class="hidden-xs hidden-sm">1980</td>
+                       </tr>
+
+                    </tbody>
+               </table>
+
+               <br/>
+               <nav style="text-align:center">
+                  <ul class="pagination">
+                    <li>
+                      <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                      </a>
+                    </li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li>
+                      <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+
+            </div>
+
+
+
+
+
+       </div>
+
+       <script src="bower_components/jquery/dist/jquery.js"></script>
+       <script src="bower_components/what-input/what-input.js"></script>
+       <script src="bower_components/foundation-sites/dist/foundation.js"></script>
+       <script src="js/app.js"></script>
+
+       <script>
+            var pin;
+            var crcl;
+            var latlng;
+            function initMap2(elem_id, latlng_init) {
+                if (!latlng_init) latlng_init = {lat: 51.109373, lng: 17.085701};
+                var map = new google.maps.Map(document.getElementById(elem_id), {
+                   zoom: 9,
+                   center: latlng_init,
+                   mapTypeId: google.maps.MapTypeId.TERRAIN,
+                   streetViewControl: false,
+                   mapTypeControl: true,
+                    mapTypeControlOptions: {
+                      style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR ,
+                      mapTypeIds: [
+                        google.maps.MapTypeId.TERRAIN,
+                        google.maps.MapTypeId.HYBRID
+                      ]
+                    }
+                });
+
+                return map;
+           }
+
+           $(document).ready(function(){
+               $('tr.aaaa').click(function(){
+                   if($('#PlaceDetailsPopupWrapper').is(':visible')) {
+                       $('tr.aaaa').removeClass('sel');
+                       $('#PlaceDetailsPopupWrapper').hide(200);
+                   } else {
+                       $('tr.aaaa').addClass('sel');
+                       $('#PlaceDetailsPopupWrapper').show(200);
+                       //$('#PlaceDetailsPopup .ajxcnt').load('./pp1.html');
+                   }
+
+               });
+               $('#PlaceDetailsPopup .closelink').click(function(){
+                   $('tr.aaaa').removeClass('sel');
+                   $('#PlaceDetailsPopupWrapper').hide(200);
+                   return false;
+               });
+           });
+
+           function initMap() {
+               var map = initMap2('map');
+           }
+
+           $(document).ready(function(){
+               $('#js-off').hide();
+               $('#js-on').fadeIn(300);
+           });
+
+       </script>
+       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdhoSL2YRJZTYdaPKfSTrTkiDsgAiHbts&signed_in=false&callback=initMap"
+           async defer></script>
+
+       <script src="js/bootstrap.min.js"></script>
+    </body>
+</html>

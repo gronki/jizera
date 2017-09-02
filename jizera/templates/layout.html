@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}Baza ciemnego nieba WYGASZ{% endblock %}</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="icon" href="{{ url_for('static', filename='img/kolko-32.png') }}" sizes="32x32" type="image/png">
+        <link rel="icon" href="{{ url_for('static', filename='img/kolko-64.png') }}" sizes="64x64" type="image/png">
+        <link rel="icon" href="{{ url_for('static', filename='img/kolko-128.png') }}" sizes="128x128" type="image/png">
+        <link rel="icon" href="{{ url_for('static', filename='img/kolko-192.png') }}" sizes="192x192" type="image/png">
+        <script src="{{ url_for('static',filename='js/jquery.js') }}" charset="utf-8"></script>
+        <script src="{{ url_for('static',filename='js/jizera.js') }}" charset="utf-8"></script>
+    </head>
+    <body>
+        <nav class="top">
+            <div class="container">
+                <img src="{{ url_for('static', filename='img/kolko-128.png') }}" alt="Baza WYGASZ" class="logo" />
+                <span class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </span>
+                <ul class="menu">
+                    <li><a id="menu-new" class="button icon-responsive" href="{{ url_for('new_observation') }}" title="Nowa obserwacja">
+                        Dodaj obserwację
+                    </a></li>
+                    <li><a id="menu-browse" class="button" href="{{ url_for('browser') }}" title="Przeglądaj bazę"> Przeglądaj bazę
+                    </a></li>
+                    <li><a id="menu-bug" class="button icon-responsive" href="https://github.com/gronki/jizera/issues/" target="_blank" title="Zgłoś błąd w bazie!"> Zgłoś błąd
+                    </a></li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+        </nav>
+        {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+        <div class="container flash">
+            <ul class="flash">
+                {% for category,message in messages %}
+                <li class="flash {{category}}">
+                    <span class="icon"></span>
+                    {{ message | safe }}
+                    <a class="button close-button">&times;</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        {% endwith %}
+        <section class="body container">
+            {% block body %}
+            Hmmm. I see nothing in here.
+            {% endblock %}
+        </section>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('nav span.hamburger').click(function(){
+                    $('nav ul.menu').toggle();
+                });
+            });
+        </script>
+    </body>
+</html>

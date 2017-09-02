@@ -1,0 +1,30 @@
+
+a.button
+  display: inline-block
+  box-sizing: border-box
+  line-height: 1.24
+  text-decoration: none
+  color: inherit
+  border-color: transparent
+  border-style: solid
+
+  padding: 0.75rem
+  border-width: 0.0625em
+
+  img:first-of-type
+    position: static
+    display: inline
+    margin-right: 0.5rem
+    vertical-align: -12%
+    width: 1em
+    height: 1em
+
+input[type="submit"]
+  @extend a.button
+
+input[type="button"]
+  @extend a.button
+
+a.button.primary
+  background-color: $color3
+  color: $color5

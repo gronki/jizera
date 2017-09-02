@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block title %}Najnowsze obserwacje{% endblock %}
+{% block body %}
+<h1>Najnowsze obserwacje</h1>
+<div class="recent">
+    <div class="caption">
+        <h2>Co nowego?</h2>
+        <p class="subcaption">
+            Zobacz, co nasi obserwatorzy wysłali!
+        </p>
+    </div>
+    <div class="list">
+        {% for t in recent %}
+        <p>
+
+            <span class="observer-name">{{ t.observer_name }} {{ t.observer_lastname }}</span> dodał(a) {{ t.created | timeago }} pomiar w lokalizacji
+            {{ t.location_name }} (<span class="latlng">{{ t.latlng  }}</span>)
+            [<a href="{{ url_for('show_observation', eid=t.observation_id) }}">ZOBACZ</a>]
+        </p>
+        {% endfor %}
+    </div>
+
+    <h3> Ostatnio dołączyli... </h3>
+    <ul>
+        {% for observer in new_observers %}
+            <li>
+                <b>{{observer.name}}</b> dołączył(a) {{observer.joined | timeago}}
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,6 @@
+/scratch
+/build
+/dist
+/venv
+*.egg-info
+*.pyc

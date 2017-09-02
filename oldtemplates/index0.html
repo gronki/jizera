@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html lang="pl">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="robots" content="noindex, noimageindex, nofollow" />
+        <meta name="google" content="notranslate" />
+        <meta name="description" content="Opis strony" />
+        <meta name="og:description" content="Opis strony" />
+        <meta name="og:image" content="img/wygasz.png" />
+        <link href="css/app.css" rel="stylesheet" type="text/css">
+        <title>Baza ciemnego nieba WYGASZ</title>
+        <meta name="og:title" content="Opis strony" />
+    </head>
+
+    <body id="frontpage">
+
+
+        <div class="title-bar" data-responsive-toggle="menu" data-hide-for="tablet">
+            <div class="mobile-branding-wrapper float-left">
+                <img src="img/wygasz-beta.png" alt="wygasz" class="mobile-branding" />
+            </div>
+            <div class="data-toggle-wrapper float-right">
+                <button class="menu-icon" type="button" data-toggle></button>
+            </div>
+        </div>
+
+        <nav class="top-bar" id="menu">
+            <div class="row small-collapse tablet-uncollapse">
+                <div class="columns medium-12">
+                    <div class="top-bar-title show-for-tablet">
+                        <img src="img/wygasz-beta.png" alt="wygasz" />
+                    </div>
+                    <div class="top-bar-right">
+
+                        <ul class="vertical tablet-horizontal menu"
+                                data-responsive-menu="drilldown tablet-dropdown">
+                            <li class="active"> <a>Dodaj</a> </li>
+                            <li> <a>Przeglądaj</a> </li>
+                            <li>
+                                <a>Przewodnik</a>
+                                <ul class="vertical menu" data-submenu>
+                                    <li class="js-drilldown-back"><a>Wstecz</a></li>
+                                    <li> <a>Ciemność nieba</a> </li>
+                                    <li> <a>Jak mierzyć?</a> </li>
+                                </ul>
+                            </li>
+                            <li> <a>Model</a> </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+
+       <div style="background-image:url(img/bg2.jpg);  background-size: cover;" id="pane1">
+           <div class="row align-center">
+
+               <div class="small-12 columns" style="text-align:center">
+                   <h1>Gdzie zobaczę ciemne niebo?</h1>
+               </div>
+           </div>
+
+           <div class="row align-center">
+               <div class="large-7 medium-10 medium-centered columns" style="text-align:center">
+                   <p style="margin-bottom:30px">Wpisz nazwę miejscowości lub współrzędne by wyszukać miejsca o zmierzonej jasności tła
+                        nieba<span class="geoloc-depend"> lub wyszukaj najlepsze
+                        miejscówki w pobliżu Twojej lokalizacji</span>!
+                   </p>
+
+                   <form method="GET">
+                       <div class="input-group">
+                           <input name="search" type="search" placeholder="Gdzie jesteś?" class="input-group-field" />
+                           <div class="input-group-button">
+                               <div class="button-group">
+                                   <button type="submit" class="button">Szukaj!</button>
+                               </div>
+                           </div>
+                       </div>
+                   </form>
+
+                   <div class="geoloc-depend">
+                       <p>lub</p>
+
+                       <form id="fp-search-geoloc" method="GET" action="/jizera-ui/browse.html">
+                           <div class="form-group">
+                               <input name="lat" type="hidden">
+                               <input name="lng" type="hidden">
+                               <button class=" button secondary"><span class="glyphicon glyphicon-screenshot"></span> Wyszukaj w mojej lokalizacji</button>
+                           </div>
+                       </form>
+                   </div>
+
+
+
+               </div>
+           </div>
+
+
+       </div>
+
+
+       <script src="bower_components/jquery/dist/jquery.js"></script>
+       <script src="bower_components/what-input/what-input.js"></script>
+       <script src="bower_components/foundation-sites/dist/foundation.js"></script>
+       <script src="js/app.js"></script>
+
+       <script type="text/javascript"> scriptFrontPage(); </script>
+    </body>
+</html>

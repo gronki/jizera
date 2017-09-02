@@ -1,0 +1,86 @@
+/****************************************************/
+/****************** WARSAW GRID *********************/
+/****************************************************/
+/*   Yet another (probably useless) grid system   */
+/*        written in SASS.          */
+/*    (If you don't like it, don't use it.)     */
+/****************************************************/
+/*   Copyright (c) 2017 Dominik Gronkiewicz     */
+/*        All rights reserved.        */
+/* Distributed under MIT license (see LICENSE file) */
+/*    http://github.com/gronki/warsaw-grid    */
+/****************************************************/
+/****************************************************/
+
+@import "respond"
+
+// this can be changed to any values that suit you
+$gutter:    3%    !default
+$grid-base:   12    !default
+$body-width:  64rem   !default
+
+/* common classes */
+
+.container
+  /* center the container for large screens */
+  margin-left:  auto
+  margin-right:   auto
+  /* add some padding between content and screen border */
+  padding-left:   $gutter / 2
+  padding-right:  $gutter / 2
+  /* set the maximum width of the content box */
+  max-width:    $body-width
+
+.row
+  /* use flexbox for grid system */
+  display:    flex
+  /* we allow wrapping in order to enable multiple responsive queries per element */
+  flex-wrap:    wrap
+  /* the negative margin trick helps achieve margin consistency between the elements inside and outside rows */
+  margin-left:  -$gutter / 2
+  margin-right:   -$gutter / 2
+
+// the base class for inheritance that helps us avoid "extend hell"
+%col-base
+  /* set margin to half the gutter on each side */
+  margin-left:  $gutter / 2
+  margin-right:   $gutter / 2
+  width: 100% - $gutter
+
+.col
+  @extend %col-base
+
+/* here are column width and offset classes */
+
+// iterate through all screen sizes
+@each $bp in map-keys($breakpoints)
+  // second, for a given screen size...
+  +breakpoint($bp)
+    // ..set column widths
+    @for $i from 1 through $grid-base
+      .col.#{$bp}-#{$i}
+        width: percentage($i / $grid-base) - $gutter
+      .#{$bp}-off-#{$i}
+        margin-left: percentage($i / $grid-base) + $gutter/2
+
+// generate the "default" col-N classes
+@for $i from 1 through $grid-base
+  .col-#{$i}
+    @extend %col-base
+    @extend .col.#{$breakpoint-uncollapse}-#{$i}
+  .off-#{$i}
+    @extend .#{$breakpoint-uncollapse}-off-#{$i}
+
+// This causes the given div to behave like a column of width $g
+// starting from size $bp. Example usage:
+// div.myrow
+//   @extend .row
+//   div.mycolumn
+//     +column(6)
+//     +column(4,lg)
+=column($g, $bp: $breakpoint-uncollapse)
+  @if $g > $grid-base
+    @warn "Given width " + $g + " exceeds the maximum of " + $grid-base + ". The column width trimmed to " + $grid-base + "."
+    $g: $grid-base
+  @extend %col-base
+  @extend .col.#{$bp}-#{$g}

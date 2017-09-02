@@ -1,0 +1,216 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<h1>Dodaj wpis do bazy</h1>
+
+{% macro render_field(input, name, label="", placeholder="", class="", attr="") %}
+{% if name in validation %}
+{% set class = class + ' error' %}
+{% endif %}
+<label for="input_field_{{ name }}" class="{{ class }}">{{ label }}</label>
+<input id="input_field_{{ name }}" type="{{ input }}" name="{{ name }}" placeholder="{{ placeholder }}" value="{{ request.form[name] }}" class="{{ class }}"  />
+<!-- {{attr}} -->
+{% if name in validation %}
+<p class="error"> {{ validation[name] }} </p>
+{% endif %}
+{% endmacro %}
+
+<form method="POST">
+
+  <!-- ******************* DANE OBSERWATORA ******************* -->
+
+  <div class="form-group">
+    <div class="padded row">
+      <div class="col-5">
+        {{ render_field('email','email','Adres e-mail','jan@kowalski.pl','required') }}
+        <p class="description">
+          Twój adres e-mail służy nam wyłącznie do komunikacji
+          z Tobą w razie potrzeby. Nie udostępniamy nikomu
+          nazwisk ani adresów e-mail obserwatorów, jedynie
+          wyniki obserwacji (pomiary).
+        </p>
+        <p class="description">
+          Podanie imienia i nazwiska nie jest obowiązkowe,
+          lecz oznacza zgodę na przetwarzanie danych
+          osobowych w ramach działania bazy.
+        </p>
+      </div>
+      <div class="col-7" id="name-box">
+        {{ render_field('text','firstname','Imię',placeholder='Jan',class='optional') }}
+        {{ render_field('text','lastname','Nazwisko',placeholder='Kowalski',class='optional') }}
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ******************* MIEJSCE OBSERWACJI ******************* -->
+
+  <div class="form-group secondary">
+    <h3>Miejsce obserwacji</h3>
+    <div class="padded row">
+      <div class="col-5">
+        {{ render_field('text','latitude','Szerokość geograficzna',placeholder='51.109371',class='required',attr='required') }}
+      </div>
+      <div class="col-5">
+        {{ render_field('text','longitude','Długość geograficzna',placeholder='17.085699',class='required',attr='required') }}
+      </div>
+      <div class="col-2">
+        <label>&nbsp;</label>
+        <a class="button primary" id="localizeme" href="#">Lokalizuj</a>
+      </div>
+    </div>
+
+    {{ render_field('text','location_name','Nazwa tej lokalizacji',placeholder='np. Polana przy Instytucie Astronomicznym lub nazwa miejscowości',class='optional') }}
+
+  </div>
+
+
+
+
+  <!-- Za pomocą pinezki zaznacz położenie wykonywanych obserwacji. Możesz też wybrać
+  jedną z innych lokalizacji już występujących w bazie lub po prostu wkleić współrzędne
+  punktu obserwacyjnego w formacie dziesiętnym. -->
+
+
+  <!-- <div id="map" style="height:380px;"></div> -->
+
+
+  <input type="hidden" id="inp_use_saved_location" name="use_saved_location" value="0" />
+
+  <!-- <div  class="form-group row" style="text-align:center">
+  <a href="#" id="btn-review-this-location" class="button complementary">Zrecenzuj miejsce obserwacji</a>
+</div> -->
+
+<!-- ******************* WARUNKI OBSERWACJI ******************* -->
+
+<div class="form-group">
+  <h3>Warunki obserwacyjne</h3>
+  <div class="padded row">
+    <div class="col md-12 lg-4">
+
+      {{ render_field('date','date','Data obserwacji',class='required',attr='required') }}
+
+    </div>
+
+    <div class="col md-6 lg-4">
+      {{ render_field('time','time_start','Godzina rozpoczęcia','23:00','required',attr='required') }}
+    </div>
+    <div class="col md-6 lg-4">
+      {{ render_field('time','time_end','Godzina zakończenia','01:00','required',attr='required') }}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-6">
+      <label for="select-cloudcover">Zachmurzenie (w oktantach)</label>
+      <select id="select-cloudcover" name="cond_clouds_octants">
+        <option value="-1">nie pamiętam</option>
+        <option value="0">zachmurzone 0/8</option>
+        <option value="2">zachmurzone 2/8</option>
+        <option value="4">zachmurzone 4/8</option>
+        <option value="6">zachmurzone 6/8</option>
+      </select>
+    </div>
+    <div class="col-6">
+      <label for="select-milkyway">Widoczność drogi mlecznej</label>
+      <select id="select-milkyway" name="cond_milkyway">
+        <option value="yes">Droga mleczna widoczna</option>
+        <option value="no">Droga mleczna niewidoczna</option>
+        <option value="unknown">Nie wiem</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+
+<!-- ******************* SKALA BORTLE'a ******************* -->
+
+<div class="form-group">
+  <h3>Ocena w skali Bortle'a</h3>
+  <div class="row" style="margin-top:0">
+
+    <div class="col-8" style="float:right">
+      <p>
+        Skala Bortle’a – skala używana do szacunkowej oceny jakości nocnego nieba podczas obserwacji astronomicznych. Po raz pierwszy opisana przez Johna E. Bortle’a w lutym 2001, w czasopiśmie Sky &amp; Telescope.
+      </p>
+      <p>
+        <a href="{{ "https://pl.wikipedia.org/wiki/Skala_Bortle’a" | escape }}" target="_blank" class="button small primary">Przejdź do Wikipedii</a>
+      </p>
+    </div>
+
+    <div class="col-4">
+      {{ render_field('number','bortle', 'Stopni w skali Bortle\'a',
+      attr='min=1 max=7', placeholder="(brak)") }}
+    </div>
+
+  </div>
+</div>
+
+<!-- ******************* ZLICZENIA GWIAZD ******************* -->
+
+<div class="form-group">
+
+  <h3>Zliczenia gwiazd przez tubę</h3>
+
+  <div class="checkbox">
+    <input id="check-tube-data"
+    type="checkbox"
+    name="check_tube_data"
+    {{ "checked" if "check_tube_data" in request.form }}
+    data-toggle="form-tube-data" />
+    <label for="check-tube-data">Wykonano obserwację</label>
+  </div>
+
+  <div id="form-tube-data" style="display:none">
+    <div class="row">
+      <div class="col-6">
+        {{ render_field('text','tube_length','Długość tuby', placeholder='cm',  class='required') }}
+      </div>
+      <div class="col-6">
+        {{ render_field('text','tube_diam','Średnica tuby', placeholder='cm', class='required') }}
+      </div>
+    </div>
+    <label for="select-tubetype">Rodzaj tuby</label>
+    <select id="select-tubetype" name="tube_type">
+      <option value="single">Pojedyncza</option>
+      <option value="double">Podwójna (&bdquo;lornetka&rdquo;)</option>
+    </select>
+
+    <div class="checkbox">
+      <input id="check-glasses" type="checkbox" name="tube_glasses" />
+      <label for="check-glasses">Czy obserwator nosił okulary w czasie obserwacji?</label>
+      <p class="description">Noszenie okularów zmienia odległość
+        pomiędzy źrenicą oka a końcem tuby. Jeżeli obserwator
+        nosił okulary, program doda do długości tuby 1cm.</p>
+    </div>
+    {{ render_field('text','tube_data','Zliczenia gwiazd w tubie (oddzielone spacjami)', class='required') }}
+  </div>
+</div>
+
+<!-- ******************* WYSYŁANIE ******************* -->
+
+<div class="form-group">
+  <div class="checkbox">
+    <input type="checkbox" name="agree-subscribe" value="" id="agree-subscribe">
+    <label for="agree-subscribe">Chcę subskrybować newsletter obserwatora</label>
+  </div>
+  <div class="checkbox">
+    <input type="checkbox" name="agree-terms" value="" id="agree-terms">
+    <label for="agree-terms" class="required">Zgadzam się z warunkami przechowywania moich danych osobowych.</label>
+  </div>
+
+</div>
+
+<div class="form-group">
+  <input type="submit" class="expand" value="Wyślij" />
+</div>
+
+
+</form>
+
+<script type="text/javascript" src="{{
+  url_for('static', filename = 'js/report.js')
+}}"></script>
+
+{% endblock %}

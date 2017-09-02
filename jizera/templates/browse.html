@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<h1>Najnowsze obserwacje</h1>
+
+<table>
+    <thead>
+        <tr>
+            <td>
+                Nazwa lokalizacji
+            </td>
+            <td>
+                Współrzędne
+            </td>
+            <td>
+                Liczba obserwacji
+            </td>
+            <td>
+                Ostatnia obserwacja
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for obs in obslist %}
+        <tr>
+            <td>{{ obs.location_name }}</td>
+            <td>{{ "{0:.3f}, {1:.3f}".format(obs.latitude,obs.longitude) }}</td>
+            <td>{{ obs.observations_count }}</td>
+            <td>{{ obs.last_observation_created | timeago }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
