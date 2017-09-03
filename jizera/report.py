@@ -5,7 +5,7 @@ from flask import render_template, abort, redirect, url_for, flash
 from jizera import app
 from jizera.database import get_db, get_db_cursor
 from datetime import datetime, timedelta
-from re import split
+from re import match,findall
 
 @app.route('/report', methods=['POST','GET'])
 def new_observation():

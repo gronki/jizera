@@ -154,11 +154,9 @@
   <h3>Zliczenia gwiazd przez tubę</h3>
 
   <div class="checkbox">
-    <input id="check-tube-data"
-    type="checkbox"
-    name="check_tube_data"
-    {{ "checked" if "check_tube_data" in request.form }}
-    data-toggle="form-tube-data" />
+    <input type="checkbox" id="check-tube-data" name="check_tube_data"
+      {{ "checked" if "check_tube_data" in request.form }}
+      data-toggle="form-tube-data" />
     <label for="check-tube-data">Wykonano obserwację</label>
   </div>
 
@@ -187,6 +185,58 @@
     {{ render_field('text','tube_data','Zliczenia gwiazd w tubie (oddzielone spacjami)', class='required') }}
   </div>
 </div>
+
+<!-- ******************* POMIAR SQM ******************* -->
+
+<div class="form-group">
+  <h3>Pomiar miernikiem SQM</h3>
+
+    <div class="checkbox">
+      <input type="checkbox" id="check-sqm-data" name="check_sqm_data"
+        {{ "checked" if "check_sqm_data" in request.form }}
+        data-toggle="form-sqm-data" />
+      <label for="check-sqm-data">Wykonano obserwację</label>
+    </div>
+
+    <div id="form-sqm-data" style="display:none">
+
+      <div class="padded">
+        {{ render_field('text', 'sqm_values_z',
+        'POMIARY W ZENICIE') }}
+      </div>
+
+      <p class="description">
+        Wpisz wskazania instrumentu SQM. Zaleca się wykonanie
+        po kilka pomiarów i oddzielenie je spacjami (program sam wyliczy
+        średnią arytmetyczną).
+      </p>
+
+      <div class="row">
+        <div class="off-4 col-4">
+          {{ render_field('text', 'sqm_values_n',
+            'PÓŁNOC (N)') }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          {{ render_field('text', 'sqm_values_w',
+            'ZACHÓD (W)') }}
+        </div>
+        <div class="col-4 off-4">
+          {{ render_field('text', 'sqm_values_e',
+            'WSCHÓD (E)') }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="off-4 col-4">
+          {{ render_field('text', 'sqm_values_s',
+            'POŁUDNIE (S)') }}
+        </div>
+      </div>
+
+    </div>
+</div>
+
 
 <!-- ******************* WYSYŁANIE ******************* -->
 
