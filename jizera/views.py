@@ -31,7 +31,6 @@ def filter_onlydate(d):
     return d.strftime('%d.%m.%Y')
 
 import jizera.report
-import jizera.browse
 import jizera.observations
 import jizera.locations
 
