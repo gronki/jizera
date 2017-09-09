@@ -30,6 +30,11 @@ def filter_timeago(d):
 def filter_onlydate(d):
     return d.strftime('%d.%m.%Y')
 
+import jizera.report
+import jizera.browse
+import jizera.observations
+import jizera.locations
+
 @app.route('/')
 def index():
     cur = get_db_cursor()
@@ -61,43 +66,9 @@ def index():
         recent=recent,
         new_observers = new_observers)
 
-@app.route('/observation/<eid>')
-def show_observation(eid):
-
-    observation_id = int(eid)
-
-    cur = get_db_cursor()
-
-    obs_info = cur.execute("""SELECT
-        observations.id AS observation_id,
-        observations.created AS created,
-        observations.date_start AS date_start,
-        observers.id AS observer_id,
-        (observers.name || " " || observers.lastname) AS observer_name,
-        locations.name AS location_name,
-        locations.latitude AS latitude,
-        locations.longitude AS longitude,
-        printf("@%.5f,%.5f", locations.latitude, locations.longitude) as latlng
-        FROM observations
-        JOIN observers ON (observers.id = observations.observer_id)
-        JOIN locations ON (locations.id = observations.location_id)
-        WHERE observations.id = ?;
-        """, (observation_id,)).fetchone()
-
-    if obs_info == None: abort(404)
-
-    obs_extras = {}
-
-    for dt in ['sqm','tube','meteor','dslr','bortle']:
-        print cur.execute("""SELECT COUNT(*) FROM {dt}_data
-            WHERE {dt}_data.observation_id = ?;""".format(dt = dt),
-            (observation_id,)).fetchall()
-        obs_extras[dt] = cur.execute("""SELECT * FROM {dt}_data
-            WHERE {dt}_data.observation_id = ?;""".format(dt = dt),
-            (observation_id,)).fetchall()
-        print obs_extras[dt]
-
-    return render_template('observation_show.html', data=obs_info, extras=obs_extras)
+@app.route('/observer/<n>')
+def show_observer(n):
+    return "obserwator {}".format(n)
 
 @app.route('/articles/<name>')
 def show_article(name):

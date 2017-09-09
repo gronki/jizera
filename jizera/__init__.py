@@ -11,8 +11,6 @@ maps_api_key = 'AIzaSyBdhoSL2YRJZTYdaPKfSTrTkiDsgAiHbts'
 
 import jizera.database
 import jizera.views
-import jizera.report
-import jizera.browse
 
 if __name__ == '__main__':
     app.run()
