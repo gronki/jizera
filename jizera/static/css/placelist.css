@@ -1,0 +1,83 @@
+table#placelist tr.clickableitem {
+  cursor: pointer;
+}
+table#placelist tr.clickableitem:hover {
+  background-color: #eee;
+}
+table#placelist tr.clickableitem.sel {
+  background-color: #444;
+  color: #ddd;
+  border: solid 0.0625rem #222;
+}
+
+tr#PlaceDetailsPopupWrapper {
+  position: relative;
+  box-sizing: border-box;
+  padding: 0rem;
+}
+tr#PlaceDetailsPopupWrapper td {
+  position: relative;
+  padding: 0rem;
+}
+
+div#PlaceDetailsPopup {
+  z-index: 300;
+  border: solid 0.0625rem #ccc;
+  padding: 0.9375rem;
+}
+@media (min-width: 48rem) {
+  div#PlaceDetailsPopup {
+    width: 98%;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0.1875rem 0.3125rem 0.625rem rgba(0, 0, 0, 0.1);
+    margin-top: 0.875rem;
+  }
+  div#PlaceDetailsPopup img.staticmap {
+    margin: auto inherit;
+  }
+  div#PlaceDetailsPopup img.tip {
+    top: -0.75rem;
+    left: 6.25rem;
+  }
+}
+@media (max-width: 48rem) {
+  div#PlaceDetailsPopup {
+    background-color: #f0f0f0;
+    margin-bottom: 0.625rem;
+  }
+  div#PlaceDetailsPopup img.tip {
+    display: none;
+  }
+}
+div#PlaceDetailsPopup img.tip {
+  position: absolute;
+}
+div#PlaceDetailsPopup a.closelink {
+  position: absolute;
+  top: 0.625rem;
+  right: 0.625rem;
+}
+div#PlaceDetailsPopup h1, div#PlaceDetailsPopup h2, div#PlaceDetailsPopup h3 {
+  margin-top: 0.25rem;
+  margin-top: 0.25rem;
+}
+
+div.redgreenbar {
+  display: block;
+  height: 1.625rem;
+  padding: 0rem;
+  font-size: 0.75rem;
+}
+div.redgreenbar div {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 1.5rem;
+  min-width: 1.25rem;
+  color: white;
+}
+div.redgreenbar div p {
+  text-align: center;
+  margin-top: 0.1875rem;
+}

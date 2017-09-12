@@ -1,1 +1,5 @@
-sass --sourcemap=none --style=expanded style.sass:../jizera/static/css/style.css
+#!/bin/bash
+
+sass -t expanded                  \
+  -C --sourcemap=none             \
+  --update .:../jizera/static/css
