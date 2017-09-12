@@ -1,6 +1,6 @@
 # coding: utf-8
 from jizera import app
-from flask import render_template, abort
+from flask import render_template, abort, request
 from jizera.database import get_db_cursor
 
 @app.route('/observation/<n>')
@@ -9,7 +9,6 @@ def show_observation(n):
     observation_id = int(n)
 
     cur = get_db_cursor()
-
     obs_info = cur.execute("""SELECT
         observations.id AS observation_id,
         observations.created AS created,
@@ -36,3 +35,7 @@ def show_observation(n):
             (observation_id,)).fetchall()
 
     return render_template('show_observation.html', data=obs_info, extras=obs_extras)
+
+@app.route('/observation-popup/<n>')
+def show_observation_popup(n):
+    return "obserwacja {}".format(n)

@@ -15,7 +15,7 @@
 
             <span class="observer-name">{{ t.observer_name }} {{ t.observer_lastname }}</span> dodał(a) {{ t.created | timeago }} pomiar w lokalizacji
             {{ t.location_name }} (<span class="latlng">{{ t.latlng  }}</span>)
-            [<a href="{{ url_for('show_observation', eid=t.observation_id) }}">ZOBACZ</a>]
+            [<a href="{{ url_for('show_observation', n=t.observation_id) }}">ZOBACZ</a>]
         </p>
         {% endfor %}
     </div>

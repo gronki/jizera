@@ -1,5 +1,15 @@
 {% extends "layout.html" %}
 {% block body %}
+
 Dodana <b>{{data.created | timeago}}</b>
 przez <a href="{{ url_for('show_observer', n = data.observer_id) }}" class="observer-{{ data.observer_id }}">{% if data.observer_name != " " %}{{ data.observer_name }}{% else %}Obserwator {{ data.observer_id }}{% endif %}</a>.
+
+<p id="boo"></p>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#boo').load({{ url_for('show_observation_popup', n = data.observation_id) | tojson }});
+  });
+</script>
+
 {% endblock %}
