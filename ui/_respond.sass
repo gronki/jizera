@@ -2,16 +2,19 @@
 $breakpoints: ( sm: 0, md: 40rem, lg: 60rem ) !default
 $breakpoint-uncollapse: md !default
 
+@function rems($pix)
+  @return $pix / 16px * 1rem
+
 =breakpoint ($size: $breakpoint-uncollapse)
-    @if $size == all
-        @content
-    @else if map-has-key($breakpoints, $size)
-        $min-width: map-get($breakpoints,$size)
-        @if $min-width == 0
-            @content
-        @else
-            @media (min-width: $min-width)
-                @content
+  @if $size == all
+    @content
+  @else if map-has-key($breakpoints, $size)
+    $min-width: map-get($breakpoints,$size)
+    @if $min-width == 0
+      @content
     @else
-        @warn "This breakpoint name (" + $size +") is invalid. Try one of the following: all," + map-keys($breakpoints)
+      @media (min-width: $min-width)
         @content
+  @else
+    @warn "This breakpoint name (" + $size +") is invalid. Try one of the following: all," + map-keys($breakpoints)
+    @content

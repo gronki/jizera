@@ -9,16 +9,20 @@
 {% block body %}
   <h1>Dodaj wpis do bazy</h1>
 
-  {% macro render_field(input, name, label="", placeholder="", class="", attr="") %}
-  {% if name in validation %}
-  {% set class = class + ' error' %}
-  {% endif %}
-  <label for="input_field_{{ name }}" class="{{ class }}">{{ label }}</label>
-  <input id="input_field_{{ name }}" type="{{ input }}" name="{{ name }}" placeholder="{{ placeholder }}" value="{{ request.form[name] }}" class="{{ class }}"  />
-  <!-- {{attr}} -->
-  {% if name in validation %}
-  <p class="error"> {{ validation[name] }} </p>
-  {% endif %}
+  {% macro render_field(input, name, label="", placeholder="", class="", attr = "", required = False) %}
+    {% if name in validation %}
+      {% set class = class + ' error' %}
+    {% endif %}
+    {% if required %}
+      {% set class = class + ' required' %}
+    {% else %}
+      {% set class = class + ' optional' %}
+    {% endif %}
+    <label for="input_field_{{ name }}" class="{{ class }}">{{ label }}</label>
+    <input id="input_field_{{ name }}" type="{{ input }}" name="{{ name }}" placeholder="{{ placeholder }}" value="{{ request.form[name] }}" class="{{ class }}" {{ attr }} />
+    {% if name in validation %}
+      <p class="error"> {{ validation[name] }} </p>
+    {% endif %}
   {% endmacro %}
 
   <form method="POST">
@@ -28,7 +32,7 @@
     <div class="form-group">
       <div class="padded row">
         <div class="col-5">
-          {{ render_field('email','email','Adres e-mail','jan@kowalski.pl','required') }}
+          {{ render_field('email', 'email', 'Adres e-mail', 'jan@kowalski.pl', required = True) }}
           <p class="description">
             Twój adres e-mail służy nam wyłącznie do komunikacji
             z Tobą w razie potrzeby. Nie udostępniamy nikomu
@@ -42,8 +46,8 @@
           </p>
         </div>
         <div class="col-7" id="name-box">
-          {{ render_field('text','firstname','Imię',placeholder='Jan',class='optional') }}
-          {{ render_field('text','lastname','Nazwisko',placeholder='Kowalski',class='optional') }}
+          {{ render_field('text', 'firstname', 'Imię', placeholder = 'Jan') }}
+          {{ render_field('text', 'lastname', 'Nazwisko', placeholder = 'Kowalski') }}
 
         </div>
 
@@ -52,22 +56,23 @@
 
     <!-- ******************* MIEJSCE OBSERWACJI ******************* -->
 
-    <div class="form-group secondary">
+    <div class="form-group">
       <h3>Miejsce obserwacji</h3>
+
+        {{ render_field('text','location_name','Nazwa tej lokalizacji',placeholder='np. Polana przy Instytucie Astronomicznym lub nazwa miejscowości') }}
+
       <div class="padded row">
         <div class="col-5">
-          {{ render_field('text','latitude','Szerokość geograficzna',placeholder='51.109371',class='required',attr='required') }}
+          {{ render_field('text', 'latitude', 'Szerokość geograficzna', placeholder='51.109371', required = True) }}
         </div>
         <div class="col-5">
-          {{ render_field('text','longitude','Długość geograficzna',placeholder='17.085699',class='required',attr='required') }}
+          {{ render_field('text', 'longitude', 'Długość geograficzna', placeholder = '17.085699', required = True) }}
         </div>
         <div class="col-2">
-          <label>&nbsp;</label>
-          <a class="button primary" id="localizeme" href="#">Lokalizuj</a>
+          <!-- <label>&nbsp;</label> -->
+          <a class="primary form button expand" id="localizeme" href="#">Lokalizuj</a>
         </div>
       </div>
-
-      {{ render_field('text','location_name','Nazwa tej lokalizacji',placeholder='np. Polana przy Instytucie Astronomicznym lub nazwa miejscowości',class='optional') }}
 
     </div>
 
@@ -80,7 +85,6 @@
 
 
     <!-- <div id="map" style="height:380px;"></div> -->
-
 
     <input type="hidden" id="inp_use_saved_location" name="use_saved_location" value="0" />
 
@@ -95,15 +99,15 @@
     <div class="padded row">
       <div class="col md-12 lg-4">
 
-        {{ render_field('date','date','Data obserwacji',class='required',attr='required') }}
+        {{ render_field('date', 'date', 'Data obserwacji', required = True) }}
 
       </div>
 
       <div class="col md-6 lg-4">
-        {{ render_field('time','time_start','Godzina rozpoczęcia','23:00','required',attr='required') }}
+        {{ render_field('time', 'time_start', 'Godzina rozpoczęcia', '23:00', required = True) }}
       </div>
       <div class="col md-6 lg-4">
-        {{ render_field('time','time_end','Godzina zakończenia','01:00','required',attr='required') }}
+        {{ render_field('time', 'time_end', 'Godzina zakończenia', '01:00', required = True) }}
       </div>
     </div>
 
@@ -169,10 +173,10 @@
     <div id="form-tube-data" style="display:none">
       <div class="row">
         <div class="col-6">
-          {{ render_field('text','tube_length','Długość tuby', placeholder='cm',  class='required') }}
+          {{ render_field('text','tube_length','Długość tuby', placeholder='cm', required = True) }}
         </div>
         <div class="col-6">
-          {{ render_field('text','tube_diam','Średnica tuby', placeholder='cm', class='required') }}
+          {{ render_field('text', 'tube_diam', 'Średnica tuby', placeholder = 'cm', required = True) }}
         </div>
       </div>
       <label for="select-tubetype">Rodzaj tuby</label>
@@ -188,7 +192,7 @@
           pomiędzy źrenicą oka a końcem tuby. Jeżeli obserwator
           nosił okulary, program doda do długości tuby 1cm.</p>
       </div>
-      {{ render_field('text','tube_data','Zliczenia gwiazd w tubie (oddzielone spacjami)', class='required') }}
+      {{ render_field('text', 'tube_data', 'Zliczenia gwiazd w tubie (oddzielone spacjami)', class='required') }}
     </div>
   </div>
 
@@ -207,8 +211,7 @@
       <div id="form-sqm-data" style="display:none">
 
         <div class="padded">
-          {{ render_field('text', 'sqm_values_z',
-          'POMIARY W ZENICIE') }}
+          {{ render_field('text', 'sqm_values_z', 'POMIARY W ZENICIE') }}
         </div>
 
         <p class="description">
@@ -219,24 +222,20 @@
 
         <div class="row">
           <div class="off-4 col-4">
-            {{ render_field('text', 'sqm_values_n',
-              'PÓŁNOC (N)') }}
+            {{ render_field('text', 'sqm_values_n', 'PÓŁNOC (N)') }}
           </div>
         </div>
         <div class="row">
           <div class="col-4">
-            {{ render_field('text', 'sqm_values_w',
-              'ZACHÓD (W)') }}
+            {{ render_field('text', 'sqm_values_w', 'ZACHÓD (W)') }}
           </div>
           <div class="col-4 off-4">
-            {{ render_field('text', 'sqm_values_e',
-              'WSCHÓD (E)') }}
+            {{ render_field('text', 'sqm_values_e', 'WSCHÓD (E)') }}
           </div>
         </div>
         <div class="row">
           <div class="off-4 col-4">
-            {{ render_field('text', 'sqm_values_s',
-              'POŁUDNIE (S)') }}
+            {{ render_field('text', 'sqm_values_s', 'POŁUDNIE (S)') }}
           </div>
         </div>
 

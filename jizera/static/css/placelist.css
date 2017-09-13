@@ -81,3 +81,6 @@ div.redgreenbar div p {
   text-align: center;
   margin-top: 0.1875rem;
 }
+div.redgreenbar.votable {
+  /* nothing */
+}

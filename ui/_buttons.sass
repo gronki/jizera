@@ -4,12 +4,15 @@ a.button
   box-sizing: border-box
   line-height: 1.24
   text-decoration: none
+  text-align: center
   color: inherit
-  border-color: transparent
-  border-style: solid
+  padding: 0.60rem
+  border: solid rems(1px) transparent
 
-  padding: 0.75rem
-  border-width: 0.0625em
+  &.expand
+    width: 100%
+  &.form
+    margin: 2rem 0rem
 
   img:first-of-type
     position: static
@@ -19,12 +22,13 @@ a.button
     width: 1em
     height: 1em
 
-input[type="submit"]
-  @extend a.button
+  &.primary
+    background-color: $clr3
+    border-color: $clr3
+    color: $clr-white
+    &:hover
+      background-color: mix($clr-white,$clr3,5%)
 
-input[type="button"]
+input[type="button"], input[type="submit"], button
   @extend a.button
-
-a.button.primary
-  background-color: $color3
-  color: $color5
+  @extend a.button.primary

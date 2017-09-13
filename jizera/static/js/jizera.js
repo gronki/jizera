@@ -1,6 +1,6 @@
 var dummy_handler, latlng2str, run_geolocation, str2latlngs;
 
-latlng2str = function(latlng) {
+function latlng2str(latlng) {
   var latstr, lngstr;
   latstr = parseFloat(latlng.lat.toFixed(6));
   lngstr = parseFloat(latlng.lng.toFixed(6));
@@ -20,7 +20,7 @@ $(document).ready(function() {
   $('.js-on').show();
 });
 
-run_geolocation = function(handler, handler_error) {
+function run_geolocation(handler, handler_error) {
   var position_failure, position_success;
   if (handler == null) {
     handler = dummy_handler;
@@ -40,11 +40,12 @@ run_geolocation = function(handler, handler_error) {
     position_failure = function(e) {
       return handler_error();
     };
-    return navigator.geolocation.getCurrentPosition(position_success, position_failure, {
+    position_options = {
       timeout: 12 * 1000,
       enableHighAccuracy: true,
       maximumAge: 120 * 1000
-    });
+    };
+    return navigator.geolocation.getCurrentPosition(position_success, position_failure, position_options);
   } else {
     return handler_error();
   }
