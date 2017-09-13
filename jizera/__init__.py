@@ -6,8 +6,8 @@ from datetime import datetime
 
 # tworzymy instancje flaska
 app = Flask(__name__)
-app.secret_key = 'J4893a8h2KbQKIjn278U80Xiv3443XZJ'
-maps_api_key = 'AIzaSyBdhoSL2YRJZTYdaPKfSTrTkiDsgAiHbts'
+app.config['VERSION'] = '170913'
+app.config.from_envvar('JIZERA_SETTINGS')
 
 import jizera.database
 import jizera.views
