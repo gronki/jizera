@@ -1,3 +1,1 @@
-SECRET_KEY = 'J4893a8h2KbQKIjn278U80Xiv3443XZJ'
-GOOGLEMAPS_APIKEY = 'AIzaSyBdhoSL2YRJZTYdaPKfSTrTkiDsgAiHbts'
-DATABASE_URI = '/tmp/jizera2.db'
+jizera/settings.py

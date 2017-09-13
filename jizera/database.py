@@ -5,8 +5,6 @@ import os
 import sqlite3
 from datetime import datetime
 
-db_filename = '/tmp/jizera.db'
-
 def get_db():
     def adapt_datetime(ts):
         return ts.strftime(r'%Y-%m-%d %H:%M:%S')
@@ -15,7 +13,7 @@ def get_db():
     if not hasattr(g,'db'):
         sqlite3.register_adapter(datetime, adapt_datetime)
         sqlite3.register_converter("datetime", convert_datetime)
-        g.db = sqlite3.connect(db_filename, detect_types=sqlite3.PARSE_DECLTYPES)
+        g.db = sqlite3.connect(app.config['DATABASE_URI'], detect_types=sqlite3.PARSE_DECLTYPES)
         g.db.row_factory = sqlite3.Row
     return g.db
 
