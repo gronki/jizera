@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pl" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}jizera{% endblock %}</title>
+    <link rel="icon" href="{{ url_for('static', filename='kolko-32.png') }}" sizes="32x32" type="image/png">
+    <link rel="icon" href="{{ url_for('static', filename='kolko-64.png') }}" sizes="64x64" type="image/png">
+    <link rel="icon" href="{{ url_for('static', filename='kolko-128.png') }}" sizes="128x128" type="image/png">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'normalize.css' )}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css' )}}">
+    {% block head %}
+    {% endblock %}
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Pomiary SQM (tajne)</h1>
+        <nav>
+          <a href="{{ url_for('add') }}" class="button {{ 'hollow' if request.url_rule.endpoint != 'add' }}">add</a>
+          <a href="{{ url_for('list') }}" class="button {{ 'hollow' if request.url_rule.endpoint != 'list' }}">list</a>
+          <a href="{{ url_for('csv') }}" class="button {{ 'hollow' if request.url_rule.endpoint != 'csv' }}">CSV</a>
+        </nav>
+      </div>
+    </header>
+
+    {% with messages = get_flashed_messages() -%}
+    {% if messages -%}
+    <div class="container flash">
+      <ul class="flash">
+        {% for m in messages -%}
+        <li class="flash"> {{ m }}</li>
+        {%- endfor %}
+      </ul>
+    </div>
+    {%- endif %}
+    {%- endwith %}
+
+    {% block body %}
+    {% endblock %}
+
+    <footer>
+      <div class=container>
+        Ta strona wykorzystuje cookies.
+      </div>
+    </footer>
+
+    {% block script %}
+    {% endblock %}
+  </body>
+</html>

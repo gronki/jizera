@@ -1,0 +1,96 @@
+/****************************************************/
+/****************** WARSAW GRID *********************/
+/****************************************************/
+/*   Yet another (probably useless) grid system     */
+/*                written in SASS.                  */
+/*      (If you don't like it, don't use it.)       */
+/****************************************************/
+/*     Copyright (c) 2017 Dominik Gronkiewicz       */
+/*              All rights reserved.                */
+/* Distributed under MIT license (see LICENSE file) */
+/*      http://github.com/gronki/warsaw-grid        */
+/****************************************************/
+/****************************************************/
+
+//----------------------------------------------------------------------------//
+
+// this can be changed to any values that suit you
+$breakpoint-md:   40rem   !default
+$breakpoint-lg:   60rem   !default
+$gutter:          5%      !default
+$grid-base:       12      !default
+$content-width:   60rem   !default
+$content-padding: 0.75rem !default
+
+//----------------------------------------------------------------------------//
+
+=breakpoint ($size: md)
+  @if $size == all or $size == sm
+    /* applies to all screens */
+    @content
+  @else if $size == md
+    @media screen and (min-width: $breakpoint-md)
+      @content
+  @else if $size == lg
+    @media screen and (min-width: $breakpoint-lg)
+      @content
+  @else
+    @warn "This breakpoint name (" + $size +") is invalid. Try one of the following: all, sm, md, lg"
+    /* invalid breakpoint detected: #{$size} */
+    @content
+
+//----------------------------------------------------------------------------//
+
+/* common classes */
+
+.container
+  /* center the container for large screens */
+  margin-left:    auto
+  margin-right:   auto
+  /* add some padding between content and screen border */
+  padding-left:   $content-padding
+  padding-right:  $content-padding
+  /* set the maximum width of the content box */
+  max-width:      $content-width
+
+.row
+  +breakpoint
+    /* use flexbox for grid system */
+    display:        flex
+    /* we allow wrapping in order to enable multiple responsive queries per element */
+    flex-wrap:      wrap
+  /* the negative margin trick helps achieve margin consistency between the elements inside and outside rows */
+  margin-left:    -$gutter / 2
+  margin-right:   -$gutter / 2
+  & > div
+    margin-left:    $gutter / 2
+    margin-right:   $gutter / 2
+
+/* here are column width and offset classes */
+
+// iterate through all screen sizes
+@each $bp in (sm, md, lg)
+  // second, for a given screen size...
+  +breakpoint($bp)
+    // ..set column widths
+    @for $i from 1 through $grid-base
+      .#{$bp}-#{$i}
+        width: percentage($i / $grid-base) - $gutter
+      .off-#{$bp}-#{$i}
+        margin-left: percentage($i / $grid-base) + $gutter / 2
+
+.hide-sm
+  @media screen and (max-width: $breakpoint-md)
+    display: none
+.hide-md
+  @media screen and (max-width: $breakpoint-lg)
+    display: none
+.hide-lg
+  display: none
+
+// generate the "default" col-N classes
+@for $i from 1 through $grid-base
+  .col-#{$i}
+    @extend .md-#{$i}
+  .off-#{$i}
+    @extend .off-md-#{$i}

@@ -1,0 +1,239 @@
+$font-family: 'Roboto', 'Droid Sans', 'Segoe UI', 'Arial', sans-serif !default
+$font-ratio: 1.414 !default
+
+$color-theme:   #DE7414 !default
+$color-dark:    mix(complement($color-theme), #2A2A2A, 3%) !default
+$color-gray:    #878787 !default
+$color-light:   mix($color-theme, white, 5%) !default
+$color-bg:      #FDFDFD !default
+$color-text:    #050505 !default
+$color-invtext: white !default
+$color-error:   #E62424 !default
+
+$color-input-border:      #B4B4B4 !default
+$color-input-background:  mix($color-input-border, $color-bg, 5%) !default
+$color-input-text:        #222222 !default
+
+//----------------------------------------------------------------------------//
+//----------------------------------------------------------------------------//
+
+@function rems($pix)
+  @return ($pix / 16px) * 1rem
+
+//----------------------------------------------------------------------------//
+//----------------------------------------------------------------------------//
+
+body
+  line-height: 1.45
+  font-family: $font-family
+  // +breakpoint
+  //   font-size: 14px
+p
+  text-align: justify
+  margin-bottom: 1.3em
+%headings
+  margin: 1.6em 0 0.6em
+  font-weight: inherit
+  line-height: 1.2
+  &.top
+    margin-top: 0.25em
+h5
+  @extend %headings
+  font-size: 1em
+h4
+  @extend %headings
+  font-size: 1em * $font-ratio
+h3
+  @extend %headings
+  font-size: 1em * $font-ratio * $font-ratio
+h2
+  @extend %headings
+  font-size: 1em * $font-ratio * $font-ratio * $font-ratio
+h1
+  @extend %headings
+  margin-top: 0
+  font-size: 1em * $font-ratio * $font-ratio * $font-ratio * $font-ratio
+small
+  font-size: 1em / $font-ratio
+
+
+/******************************************************************************/
+/******************************************************************************/
+
+// body
+//   background-color: $color-bg
+
+a.button
+  display: inline-block
+  box-sizing: border-box
+  line-height: 1.24
+  text-decoration: none
+  text-align: center
+  // text-transform: uppercase
+  // letter-spacing: 0.08em
+  padding: 0.6em 0.9em
+
+  border-style: solid
+  border-width: rems(1px)
+  background-color: $color-theme
+  border-color: $color-theme
+  color: $color-invtext
+  &:hover
+    background-color: lighten($color-theme, 2%)
+
+  &.hollow
+    background-color: inherit
+    color: $color-theme
+    &:hover
+      background-color: transparentize($color-theme, 0.97)
+
+  &:focus
+    outline: none
+
+  &.expand
+    width: 100%
+  &.form
+    margin: 2rem 0rem
+
+  &.large
+    font-size: 1.5em
+    padding: 0.8em 1.2em
+
+  img:first-of-type
+    position: static
+    display: inline
+    margin-right: 0.5rem
+    vertical-align: -12%
+    width: 1em
+    height: 1em
+
+
+input[type="button"], input[type="submit"], button
+  @extend a.button
+
+/******************************************************************************/
+/******************************************************************************/
+
+table
+  width: 100%
+  box-sizing: border-box
+  border-collapse: collapse
+  margin: 3em 0em
+  tr
+    border-bottom: solid rems(1px) $color-gray
+    &:first-of-type
+      border-top: solid rems(1px) $color-gray
+  td, th
+    padding: 0.8em
+    text-align: center
+
+/******************************************************************************/
+/******************************************************************************/
+
+=placeholder-color($clr)
+  &::placeholder,
+  &::-webkit-input-placeholder,
+  &:-moz-placeholder,
+  &::-moz-placeholder,
+  &:-ms-input-placeholder
+    color: $clr
+
+input,
+select,
+textarea
+  font-family: inherit
+  font-size: 1.125em
+  width: 100%
+  box-sizing: border-box
+  margin: 0.5em 0em
+  padding: 0.60em
+  border: solid rems(1px) $color-input-border
+  background-color: $color-input-background
+  +placeholder-color(mix($color-input-text, $color-input-background, 10%))
+  &.error
+    border-color: mix($color-error, $color-input-border, 80%)
+    color: $color-error
+    &:focus
+      border-color: $color-error
+  &:focus
+    outline: none
+    border-color: lighten(desaturate($color-theme, 18%), 20%)
+
+label
+  margin: 1.25em 0em 0.2em
+  color: mix($color-text, $color-bg, 80%)
+
+form div.input
+  margin: 0.6em auto
+  &.error
+    label, input, select, textarea
+      color: $color-error
+    input, select, textarea
+      border-color: mix($color-error, $color-input-border, 90%)
+      background-color: mix($color-error, $color-input-background, 8%)
+      &:focus
+        border-color: $color-error
+
+form div.input.required label::after
+  content: " *"
+  color: #D52317
+
+form
+  margin: 1.7em auto
+
+  .form-group
+    margin:  0.5em 0
+    padding: 0.5em 0
+    +breakpoint
+      margin:  1em 0
+      padding: 1em 0
+    border-bottom: solid rems(1px) $color-input-border
+    h2, h3, h4
+      &:first-of-type
+        margin-top: 0
+    &:last-of-type
+      border-bottom: none
+
+  p.description
+    color: mix($color-text, $color-bg, 45%)
+    font-size: 80%
+    font-style: italic
+    line-height: normal
+    margin: 0.5em 0em 0.9em
+
+  p.error,
+  p.validation
+    color: $color-error
+    font-size: 85%
+    font-weight: bold
+    margin: 0.1em 0em 0.7em
+
+div.checkbox
+  margin: 1em 0rem
+  input[type="checkbox"]
+    width: 0.88em
+    height: 0.88em
+    margin: 0.25em 0em
+    border: none
+  p.error, p.error-message
+    margin-left: 2em
+  label
+    margin: -0.125em 0.0em 0.25em 0.5em
+  &.error
+    border: solid rems(1px) $color-error
+
+input.nolabel
+  +breakpoint
+    margin-top: 1.74rem
+
+header
+  padding-top: 4rem
+  margin-bottom: 2rem
+  h1
+    color: $color-theme
+
+footer
+  padding: 3.5rem 0rem 4rem
+  margin-top: 4rem
+  color: mix($color-invtext, $color-dark, 45%)
+  background-color: $color-dark

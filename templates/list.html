@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="container">
+  {% if rows %}
+  <table>
+    <tr>
+      <th>WHO &amp; WHEN</th>
+      <th>LAT &amp; LNG</th>
+      <th>SQM &plusmn; ERR</th>
+    </tr>
+    {% for r in rows %}
+    <tr>
+      <td title="#{{ r.id }}">
+        {% if r.obsname %}
+          <b>{{ r.obsname | e }}</b>
+        {% else %}
+          anonim
+        {% endif %}
+        <small>{{ r.created | timeago }}</small>
+      </td>
+      <td>{{'%.5f' % r.latitude}}, {{'%.5f' % r.longitude}}
+        [<a href="https://maps.google.com/?q={{r.latitude}},{{r.longitude}}" target=_blank>map</a>]
+      </td>
+      <td>{%- if r.sqm_std != None -%}
+        {{ '%.2f' % r.sqm_avg}} &plusmn; {{ '%.2f' % r.sqm_std}}
+      {%- else -%}
+        {{ '%.2f' % r.sqm_avg}}
+      {%- endif -%}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <h3>none :(</h3>
+  {% endif %}
+</div>
+
+
+{% endblock %}
