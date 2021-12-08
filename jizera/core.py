@@ -1,11 +1,12 @@
-from flask import Flask, request, g, abort, redirect, render_template, flash, url_for, session
+from flask import request, g, abort, redirect, render_template, flash, url_for, session
 import sqlite3
 import click
 from datetime import datetime
 
 #------------------------------------------------------------------------------#
 
-app = Flask('jizera-zero')
+from jizera import app
+
 app.secret_key = 'asinarheaiwcthnoav8utn3aolwrnausvoatahn8wvlnla3yb560ola8'
 database_uri = 'jizerasqm.db'
 tzfmt = '%Y-%m-%d %H:%M:%S'
