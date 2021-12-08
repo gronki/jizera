@@ -85,8 +85,10 @@
 
   function updateMapLink(lat, lng) {
     var div = document.getElementById('mapref');
-    div.innerHTML = "<a target=_blank href=\"https://maps.google.com/?q="
-      + lat.toFixed(6) + "," + lng.toFixed(6) + "\">sprawdź w Google Maps</a>";
+    div.innerHTML = "<a target=_blank href=\"http://maps.google.com/maps?t=k&q=loc:"
+      + lat.toFixed(6) + "+" + lng.toFixed(6) + "\">sprawdź w Google Maps</a>";
+    // div.innerHTML = "<a target=_blank href=\"https://maps.google.com/?q="
+    //   + lat.toFixed(6) + "," + lng.toFixed(6) + "\">sprawdź w Google Maps</a>";
   }
 
   function latlngChange() {
